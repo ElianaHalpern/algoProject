@@ -21,14 +21,16 @@ private:
 public:
     FileCacheManager() {
         //read from file the previous problems and solution and insert them to the solution map
-        cacheFile.open("cacheFile.txt", fstream::in | fstream::out | fstream::app);
+        ifstream cacheF("cacheFile.txt");
         string problem;
         string solution;
-        while (getline(this->cacheFile, problem)) {
-            getline(this->cacheFile, solution);
-            solutions.insert(pair<string, string>(problem, solution));
+        if (cacheF.is_open()) {
+            while (getline(cacheF, problem)) {
+                getline(cacheF, solution);
+                solutions.insert(pair<string, string>(problem, solution));
+            }
+            cacheFile.close();
         }
-        cacheFile.close();
     }
 
     bool isExist(string problem) override;
@@ -37,8 +39,18 @@ public:
 
     void addSolution(string problem, string solution) override;
 
-    ~FileCacheManager() = default;
-
+    ~FileCacheManager() {
+        ofstream cacheF("cacheFile.txt");
+        if (cacheF.is_open()) {
+            for (std::map<string, string>::iterator it = solutions.begin(); it != solutions.end(); ++it) {
+                cacheF << it.operator*().first;
+                cacheF << it.operator*().second + "\n";
+                cacheF.flush();
+                cacheF.close();
+            }
+        }
+        cacheF.close();
+    }
 };
 
 
