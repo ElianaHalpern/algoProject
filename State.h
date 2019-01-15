@@ -74,6 +74,10 @@ public:
         return this->state == s;
     }
 
+    void initializeTotalCost() {
+        this->totalCost = currCost;
+    }
+
     ~State() {
         delete this->state;
     }

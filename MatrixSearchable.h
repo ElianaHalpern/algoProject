@@ -12,9 +12,6 @@
 #include <complex>
 
 class MatrixSearchable : public Searchable<Point> {
-    State<Point> *current;
-    State<Point> *start;
-    State<Point> *goal;
     int row;
     int col;
     State<Point> ***matrix;
@@ -30,41 +27,9 @@ public:
         }
     }
 
-    virtual State<Point> *getCurrent() {
-        return this->current;
-    }
-
-    virtual State<Point> *getInitialState() {
-        return this->start;
-    }
-
-    virtual State<Point> *getGoalState() {
-        return this->goal;
-    }
-
-    virtual bool getCurrVisited() {
-        return current->getIsVisited();
-    }
-
-    void setCurrent(State<Point> *c) {
-        this->current = c;
-    }
-
-    void setStart(State<Point> *s) {
-        this->start = s;
-    }
-
-    void setGoal(State<Point> *g) {
-        this->goal = g;
-    }
-
-    virtual void setCurrVisited() {
-        this->current->setIsVisited();
-    }
-
     void setValInMatrix(vector<vector<double >> vec) override;
 
-    list<State<Point> *> getAllPossibleStates(State<Point> *s) override;
+    list<State<Point> *> getAllPossibleStates(State<Point> *s, char type) override;
 
     double calculateHValue(State<Point> *cur) override;
 
