@@ -30,7 +30,7 @@ void MatrixSearchable::setValInMatrix(vector<vector<double> > vec) {
     this->current = matrix[0][0];
 }
 
-list<State<Point> *> MatrixSearchable::getAllPossibleStates(State<Point> *s) {
+list<State<Point> *> MatrixSearchable::getAllPossibleStates(State<Point> *s, char typeOfSearch) {
     list<State<Point> *> direction;
     int x = s->getState()->getX();
     int y = s->getState()->getY();

@@ -29,7 +29,7 @@ public:
 
     void setValInMatrix(vector<vector<double >> vec) override;
 
-    list<State<Point> *> getAllPossibleStates(State<Point> *s) override;
+    list<State<Point> *> getAllPossibleStates(State<Point> *s, char typeOfSearch) override;
 
     double calculateHValue(State<Point> *cur) override;
 

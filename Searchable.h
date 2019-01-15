@@ -49,7 +49,7 @@ public:
 
     virtual void setValInMatrix(vector<vector<double >> vec) = 0;
 
-    virtual list<State<T> *> getAllPossibleStates(State<T> *s) = 0;
+    virtual list<State<T> *> getAllPossibleStates(State<T> *s, char typeOfSearch) = 0;
 
     virtual double calculateHValue(State<T> *cur) = 0;
 };

@@ -30,35 +30,49 @@ public:
         this->evaluated++;
         searchable->setCurrVisited();
 
+        //run until we have no more state to go to
         while (myList.size() > 0) {
-            State<T> *n = myList.front();
+            //save the state from the list, and than erase it from the list
+            State<T> *parent = myList.front();
             myList.pop_front();
 
             //check if we got to the goal of the path
-            if (n->equals(searchable->getGoalState())) {
-                evaluated++;
-                while (n->getParent() != nullptr) {
-                    trace.push_back(n);
-                    pathCost += n->getCost();
-                    n = n->getParent();
+            if (parent->equals(searchable->getGoalState())) {
+                this->evaluated++;
+
+                //if we are not on the start state of the searchable
+                while (parent->getParent() != nullptr) {
+                    //go over all the state we got throw
+                    path.push_back(parent);
+                    this->cost += parent->getCost();
+                    parent = parent->getParent();
                 }
-                pathCost += n->getCost();
-                trace.push_back(n);
-                vector<State<T> *> back;
-                for (int i = trace.size() - 1; i >= 0; i--) {
-                    back.push_back(trace.at(i));
+
+                this->cost += parent->getCost();
+                path.push_back(parent);
+                vector<State<T> *> returnBack;
+
+                //insert to new vector in the write direction, and return it to the client
+                int i = 0;
+                for (i = path.size() - 1; i >= 0; i--) {
+                    returnBack.push_back(path.at(i));
                 }
-                return back;
+                return returnBack;
             }
-            list<State<T> *> succerssors = searchable->getAllPossibleStates(n, 'b');
-            for (State<T> *state : succerssors) {
-                bool visited = state->getVisited();
+
+            list<State<T> *> states = searchable->getAllPossibleStates(parent, 'B');
+            //get all the sons of the state we are looking on it now
+            for (State<T> *state : states) {
+                bool visited = state->getIsVisited();
+
+                //for every state that is not visited it, set his parent, push it to the list, set as current state
+                //and increase the evaluate by 1
                 if (!visited) {
-                    state->setVisited();
-                    state->setParent(n);
-                    openList.push_back(state);
-                    evaluated++;
+                    state->setIsVisited();
+                    state->setCameFrom(parent);
+                    myList.push_back(state);
                     searchable->setCurr(state);
+                    this->evaluated++;
                 }
             }
         }
