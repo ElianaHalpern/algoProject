@@ -4,9 +4,8 @@
 
 #ifndef ALGOPROJECT_SERVER_H
 #define ALGOPROJECT_SERVER_H
-#include "ClientHandler.h"
 
-using namespace std;
+#include "ClientHandler.h"
 
 namespace server_side {
     class Server {
@@ -14,8 +13,6 @@ namespace server_side {
         virtual void open(int port, ClientHandler *clientHandler) = 0;
 
         virtual void stop() = 0;
-
-        virtual bool accept() = 0;
     };
 }
 

@@ -4,6 +4,7 @@
 
 #ifndef ALGOPROJECT_POINT_H
 #define ALGOPROJECT_POINT_H
+
 class Point {
 private:
     int x;
@@ -18,16 +19,17 @@ public:
         this->x = x;
     }
 
-    void setY(int y) {
-        this->y = x;
-    }
-
     int getX() {
         return this->x;
+    }
+
+    void setY(int y) {
+        this->y = x;
     }
 
     int getY() {
         return this->y;
     }
 };
+
 #endif //ALGOPROJECT_POINT_H

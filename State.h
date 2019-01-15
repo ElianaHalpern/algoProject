@@ -18,7 +18,6 @@ class State {
     bool isVisited = false;
     double heuristicCost;
 public:
-
     State(double cost, T *state) {
         this->currCost = cost;
         this->totalCost = cost;
@@ -35,48 +34,44 @@ public:
         return this->cameFrom;
     }
 
-    void setCameFrom(State<T> *parent) {
-        this->cameFrom = parent;
-    }
-
-    bool equals(State<T> *s) {
-        return this == s;
+    double getCurrCost() {
+        return this->currCost;
     }
 
     double getTotalCost() {
         return this->totalCost;
     }
 
-    void setVisited() {
-        this->isVisited = true;
-    }
-
     bool getIsVisited() {
         return this->isVisited;
-    }
-
-    void setCurrCost(double x) {
-        this->currCost = x;
-    }
-
-    double getCurrCost() {
-        return this->currCost;
-    }
-
-    double getCost(State<T> *s) {
-        return s->currCost;
-    }
-
-    void setTotalCost(double d) {
-        this->totalCost += d;
     }
 
     double getHeuristicCost() {
         return this->heuristicCost;
     }
 
+    void setCameFrom(State<T> *parent) {
+        this->cameFrom = parent;
+    }
+
+    void setCurrCost(double x) {
+        this->currCost = x;
+    }
+
+    void setTotalCost(double d) {
+        this->totalCost += d;
+    }
+
+    void setIsVisited() {
+        this->isVisited = true;
+    }
+
     void setHeuristicCost(double h) {
         this->heuristicCost = h;
+    }
+
+    bool equals(State<T> *s) {
+        return this->state == s;
     }
 
     ~State() {

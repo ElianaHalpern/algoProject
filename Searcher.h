@@ -4,9 +4,9 @@
 
 #ifndef ALGOPROJECT_SEARCHER_H
 #define ALGOPROJECT_SEARCHER_H
+
 #include <vector>
 #include "Searchable.h"
-#include "State.h"
 
 template<class T>
 class Searcher {

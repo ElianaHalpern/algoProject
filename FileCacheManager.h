@@ -5,12 +5,9 @@
 #ifndef ALGOPROJECT_FILECHACHEMANAGER_H
 #define ALGOPROJECT_FILECHACHEMANAGER_H
 
-
-
-
+#include "CacheManager.h"
 #include <fstream>
 #include <iostream>
-#include "CacheManager.h"
 #include <map>
 #include "MyParallelServer.h"
 
@@ -23,7 +20,8 @@ private:
 
 public:
     FileCacheManager() {
-        cacheFile.open("cache.txt", fstream::in | fstream::out | fstream::app);
+        //read from file the previous problems and solution and insert them to the solution map
+        cacheFile.open("cacheFile.txt", fstream::in | fstream::out | fstream::app);
         string problem;
         string solution;
         while (getline(this->cacheFile, problem)) {
@@ -42,8 +40,6 @@ public:
     ~FileCacheManager() = default;
 
 };
-
-
 
 
 #endif //ALGOPROJECT_FILECHACHEMANAGER_H

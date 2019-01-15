@@ -4,21 +4,17 @@
 
 #ifndef ALGOPROJECT_HANDLECLIENT_H
 #define ALGOPROJECT_HANDLECLIENT_H
+
+#include "Solver.h"
 #include <iostream>
-#include "CacheManager.h"
 
 using namespace std;
 
 class ClientHandler {
-protected:
-    CacheManager *cacheManager;
-
 public:
-    ClientHandler(CacheManager *cacheManager1) {
-        this->cacheManager = cacheManager1;
-    }
+    virtual void handleClient(int sockID) = 0;
 
-    virtual void handleClient(int SockID) = 0;
+    virtual ~ClientHandler() = default;
 };
 
 #endif //ALGOPROJECT_HANDLECLIENT_H
