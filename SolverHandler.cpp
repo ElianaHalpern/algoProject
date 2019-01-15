@@ -13,7 +13,7 @@ string SolverHandler::solve(string problem) {
     //save the first line to get the number of col we will need for the matrix
     vector<double> first = vec.at(0);
 
-    //create the matrix by the specific size
+    //create the matrix by the specific size we have
     auto *matrix = new MatrixSearchable(vec.size() - 2, first.size());
     matrix->setValInMatrix(vec);
 
