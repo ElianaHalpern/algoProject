@@ -54,7 +54,7 @@ public:
 
     virtual void setValInMatrix(vector<vector<double >> vec) = 0;
 
-    State<Point> *current;
+
 };
 
 #endif //ALGOPROJECT_SEARCHABLE_H

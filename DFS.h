@@ -6,7 +6,7 @@
 #define ALGOPROJECT_DFS_H
 
 #include "Searcher.h"
-#include "MatrixSearchable.h"
+#include "Searchable.h"
 #include <queue>
 #include "State.h"
 #include "SolverHandler.h"
@@ -25,37 +25,38 @@ public:
     //the matrix is our "searchable" in this case
     vector<State<T>*> search(Searchable<T>* searchable) override {
         searchable->setCurrVisited();
+        //save the path(the solution) and return it in the end
         vector<State<T>*> path;
         this->DFS_alg(searchable, searchable->getInitialState(), path);
         return path;
     }
-
-    int DFS_alg(Searchable<T>* searchable, State<T>* curr, vector<State<T>*> &trace) {
+//the DFS algorithm- getting the matrix, the start point and a vector to update with the path details
+    int DFS_alg(Searchable<T>* searchable, State<T>* curr, vector<State<T>*> &path) {
         if(curr->equals(searchable->getGoalState())){
             evaluated++;
-            while (curr->getParent() != nullptr) {
-                trace.push_back(curr);
-                pathCost += curr->getCost();
-                curr = curr->getParent();
+            while (curr->getCameFrom() != nullptr) {
+                path.push_back(curr);
+                pathCost += curr->getCurrCost();
+                curr = curr->getCameFrom();
             }
-            pathCost += curr->getCost();
-            trace.push_back(curr);
-            vector<State<T>*> back;
-            for (int i = trace.size() - 1; i >= 0 ; i--) {
-                back.push_back(trace.at(i));
+            pathCost += curr->getCurrCost();
+            path.push_back(curr);
+            vector<State<T>*> vec1;
+            for (long i = path.size() - 1; i >= 0 ; i--) {
+               vec1.push_back(path.at(i));
             }
-            trace = back;
+            path = vec1;
             return 1;
         }
-        curr->setVisited();
+        curr->setIsVisited();
         evaluated++;
-        searchable->setCurr(curr);
-        list<State<T>*> succerssors = searchable->getAllPossibleStates(curr,'b');
-        for (State<T>* state : succerssors) {
-            bool visited = state->getVisited();
+        searchable->setCurrent(curr);
+        list<State<T>*> states = searchable->getAllPossibleStates(curr,'b');
+        for (State<T>* state : states) {
+            bool visited = state->getIsVisited();
             if (!visited) {
-                state->setParent(curr);
-                if (DFS_alg(searchable, state, trace) == 1) {
+                state->setCameFrom(curr);
+                if (DFS_alg(searchable, state, path) == 1) {
                     return 1;
                 }
             }
