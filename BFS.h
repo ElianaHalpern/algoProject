@@ -71,7 +71,7 @@ public:
                     state->setIsVisited();
                     state->setCameFrom(parent);
                     myList.push_back(state);
-                    searchable->setCurr(state);
+                    searchable->setCurrent(state);
                     this->evaluated++;
                 }
             }
